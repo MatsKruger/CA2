@@ -2,8 +2,10 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Company extends InfoEntity implements Serializable {
 
     private String name;
