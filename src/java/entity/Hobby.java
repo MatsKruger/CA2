@@ -7,8 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Hobby.findAll", query = "SELECT h FROM Hobby h"),
+    @NamedQuery(name = "Hobby.findById", query = "SELECT h FROM Hobby h WHERE h.id = :id")
+})
 public class Hobby implements Serializable {
 
     @ManyToMany(mappedBy = "hobbies")
@@ -47,5 +53,14 @@ public class Hobby implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+    
     
 }

@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/CA2"/>
+<Context path="/CA2">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="CA2Test" password="SneWide&amp;D7" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/CA2Test?zeroDateTimeBehavior=convertToNull" username="root"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="CA2" password="SneWide&amp;D7" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/CA2?zeroDateTimeBehavior=convertToNull" username="root"/>
+</Context>

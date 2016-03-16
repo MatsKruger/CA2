@@ -1,72 +1,73 @@
 package facade;
 
-import entity.Person;
-import interfaces.IPersonFacade;
+import entity.Company;
+import entity.Company;
+import interfaces.ICompanyFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class PersonFacade implements IPersonFacade {
+public class CompanyFacade implements ICompanyFacade {
     
     EntityManagerFactory emf;
-    public PersonFacade(EntityManagerFactory emf) {
+    public CompanyFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
     @Override
-    public Person addPerson(Person p) {
+    public Company addCompany(Company c) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(p);
+            em.persist(c);
             em.getTransaction().commit();
         } finally { 
             em.close(); 
         }
         
-        return p;
+        return c;
     }
 
     @Override
-    public Person deletePerson(int id) {
+    public Company deleteCompany(int id) {
         
         EntityManager em = getEntityManager();
-        Person p = em.find(Person.class, id);
+        Company c = em.find(Company.class, id);
         try {
             em.getTransaction().begin();
-            em.remove(p);
+            em.remove(c);
             em.getTransaction().commit();
         } finally { 
             em.close(); 
         }
         
-        return p;
+        return c;
     }
 
     @Override
-    public Person getPerson(int id) {
+    public Company getCompany(int id) {
         EntityManager em = getEntityManager();
-        Person p = em.createNamedQuery("Person.findById", Person.class).setParameter("id", id).getSingleResult();
-        return p;
+        Company c = em.createNamedQuery("Company.findById", Company.class).setParameter("id", id).getSingleResult();
+        return c;
     }
 
     @Override
-    public List<Person> getPersons() {
+    public List<Company> getCompanys() {
         EntityManager em = getEntityManager();
-        return em.createNamedQuery("Person.findAll", Person.class).getResultList();
+        return em.createNamedQuery("Company.findAll", Company.class).getResultList();
     }
 
     @Override
-    public Person editPerson(Person p) {
+    public Company editCompany(Company c) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.merge(p);
+            em.merge(c);
             em.getTransaction().commit();
         } finally { 
             em.close(); 
         }
-        return p;
+        return c;
     }
     
     protected EntityManager getEntityManager(){
