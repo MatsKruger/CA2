@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 
 //@Entity
 @MappedSuperclass
@@ -27,8 +29,8 @@ public abstract class InfoEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Phone phone;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Phone> phone;
 
     public Integer getId() {
         return id;
@@ -44,6 +46,22 @@ public abstract class InfoEntity implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Phone> getPhone() {
+        return phone;
+    }
+
+    public void setPhone(List<Phone> phone) {
+        this.phone = phone;
     }
     
 }

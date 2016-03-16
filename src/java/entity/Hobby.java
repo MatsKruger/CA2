@@ -7,16 +7,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "hobby.getAll", query = "SELECT h FROM Hobby h"),
+//    @NamedQuery(name = "hobby.getAllId", query = "SELECT h FROM Hobby h WHERE :id in (h.persons.id)")
+})
 public class Hobby implements Serializable {
 
     @ManyToMany(mappedBy = "hobbies")
     private List<Person> persons;
-
-    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,7 +37,7 @@ public class Hobby implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -48,6 +52,14 @@ public class Hobby implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
     
 }

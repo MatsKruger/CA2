@@ -1,8 +1,6 @@
 package api;
 
-import com.google.gson.Gson;
 import entity.Person;
-import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,8 +10,9 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -34,24 +33,64 @@ public class PersonResource extends AbstractFacade<Person>{
     public PersonResource() {
         super(Person.class);
     }
-
-    /**
-     * Retrieves representation of an instance of api.PersonResource
-     * @return an instance of java.lang.String
-     */
+    
+    /*
+    Gets all persons in DB
+    */
     @GET
+    @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
+    public String getPerson() {
         return super.findAll();
     }
-
-    /**
-     * PUT method for updating or creating an instance of PersonResource
-     * @param content representation for the resource
-     */
-    @PUT
+    
+    /*
+    Get person with id in the path
+    */
+    @GET
+    @Path("complete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonId(@PathParam("id") String id) {
+        int intId = Integer.parseInt(id);
+        return super.find(intId);
+    }
+    
+    /*
+    Get contactinfo from all persons in db
+    */
+    @GET
+    @Path("contactinfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getContactinfo() {
+        return super.findAllColumns("firstName,lastName,email,phone");
+    }
+    
+    /*
+    Get contact info from person with id in the path
+    */
+    @GET
+    @Path("contactinfo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getContactinfoId(@PathParam("id") String id) {
+        int intId = Integer.parseInt(id);
+        return super.findAllColumnsId("firstName,lastName,email,phone", intId);
+    }
+    
+    @GET
+    @Path("phone/{number}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonPhone(@PathParam("number") String phoneNumber) {
+        return super.findAllCriteria("phone.number", phoneNumber);
+    }
+    
+    /*
+    Creates a new person in DB
+        - should this return the person created?
+    */
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
+    public void putJson(String personJson) {
+        super.create(personJson);
     }
 
     @Override

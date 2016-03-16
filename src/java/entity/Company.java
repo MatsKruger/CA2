@@ -2,10 +2,21 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "company.findAll", query = "SELECT c from Company c"),
+    @NamedQuery(name = "company.findById", query = "SELECT c from Company c WHERE c.id = :id"),
+//    @NamedQuery(name = "company.findByPhone", query = "SELECT c from Company c WHERE c.phone.number = :number"),
+    @NamedQuery(name = "company.findByCvr", query = "SELECT c from Company c WHERE c.cvr = :cvr"),
+    @NamedQuery(name = "company.findByMoreThanNumEmployees", query = "SELECT c from Company c WHERE c.numEmployees > :numEmployees"),
+    @NamedQuery(name = "company.findByLessThanNumEmployees", query = "SELECT c from Company c WHERE c.numEmployees < :numEmployees"),
+})
+
 public class Company extends InfoEntity implements Serializable {
 
     private String name;

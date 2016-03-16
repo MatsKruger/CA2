@@ -5,10 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "cityInfo.findAll", query = "SELECT ci FROM CityInfo ci"),
+    @NamedQuery(name = "cityInfo.findZipCodes", query = "SELECT ci.zipCode FROM CityInfo ci")
+})
 public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
