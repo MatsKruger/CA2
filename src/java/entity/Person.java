@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -11,7 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id")
+    @NamedQuery(name = "person.findById", query = "SELECT p FROM Person p WHERE p.id = :id"),
+    @NamedQuery(name = "person.findByCity", query = "SELECT p FROM Person p WHERE p.address.city.city LIKE :city"), //needs "%" on each side when setting parameter
+    @NamedQuery(name = "person.findByZip", query = "SELECT p FROM Person p WHERE p.address.city.zipCode LIKE :zipCode")
 })
 @XmlRootElement
 public class Person extends InfoEntity implements Serializable {
@@ -19,7 +22,7 @@ public class Person extends InfoEntity implements Serializable {
     private String lastName;
     
     
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Hobby> hobbies;
 
     public String getFirstName() {

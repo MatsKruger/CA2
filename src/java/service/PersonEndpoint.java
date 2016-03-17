@@ -8,6 +8,7 @@ package service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import entity.Address;
 import entity.Hobby;
@@ -17,10 +18,12 @@ import facade.HobbyFacade;
 import facade.PersonFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -80,14 +83,38 @@ public class PersonEndpoint {
         return gson.toJson(json);  
     }
     
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createPerson(String json) {
+        System.out.println("JSON GOT: " + json);
+        Person p = pf.addPerson(gson.fromJson(json, Person.class));
+        return gson.toJson(getPersonJsonObj(p)); //return same object or exception if failed?
+    }
+    
     private JsonObject getPersonJsonObj(Person p) {
         JsonObject obj = new JsonObject();
         obj.addProperty("firstName", p.getFirstName());
         obj.addProperty("lastName", p.getLastName());
         obj.addProperty("email", p.getEmail());
-        obj.addProperty("address", gson.toJson(p.getAddress(), Address.class));
-        obj.addProperty("phones", gson.toJson(p.getPhones()));
-
+        obj.add("address", gson.toJsonTree(p.getAddress(), Address.class));
+//        obj.addProperty("address", gson.toJson(p.getAddress(), Address.class)); //makes weird string response
+//        obj.addProperty("phone", gson.toJson(p.getPhones())); //stackoverflow
+        JsonArray phones = new JsonArray();
+        for (Phone ph : p.getPhones()) {
+            JsonObject phone = new JsonObject();
+            phone.addProperty("number", ph.getNumber());
+            phone.addProperty("description", ph.getDescription());
+            phones.add(phone);
+        }
+        obj.add("phones", phones);
+        JsonArray hobbies = new JsonArray();
+        for (Hobby h : p.getHobbies()) {
+            JsonObject hobby = new JsonObject();
+            hobby.addProperty("name", h.getName());
+            hobby.addProperty("description", h.getDescription());
+            hobbies.add(hobby);
+        }
+        obj.add("hobbies", hobbies);
         return obj;
     }
     
