@@ -16,21 +16,21 @@ public class Tester {
         PersonFacade personFacade = new PersonFacade(emf);
         CompanyFacade companyFacade = new CompanyFacade(emf);
         HobbyFacade hobbyFacade = new HobbyFacade(emf);
-        
-        personFacade.addPerson(new Person());
-        personFacade.addPerson(new Person());
-        personFacade.addPerson(new Person());
-        personFacade.addPerson(new Person());
-        
-        companyFacade.addCompany(new Company());
-        companyFacade.addCompany(new Company());
-        companyFacade.addCompany(new Company());
-        companyFacade.addCompany(new Company());
-        
-        hobbyFacade.addHobby(new Hobby());
-        hobbyFacade.addHobby(new Hobby());
-        hobbyFacade.addHobby(new Hobby());
-        hobbyFacade.addHobby(new Hobby());
+        // String firstName, String lastName, List<Hobby> hobbies, String email, Address address, List<Phone> phones
+//        personFacade.addPerson(new Person("Mats", "Krüger"));
+//        personFacade.addPerson(new Person());
+//        personFacade.addPerson(new Person());
+//        personFacade.addPerson(new Person());
+//        
+//        companyFacade.addCompany(new Company());
+//        companyFacade.addCompany(new Company());
+//        companyFacade.addCompany(new Company());
+//        companyFacade.addCompany(new Company());
+//        
+//        hobbyFacade.addHobby(new Hobby());
+//        hobbyFacade.addHobby(new Hobby());
+//        hobbyFacade.addHobby(new Hobby());
+//        hobbyFacade.addHobby(new Hobby());
         
     }
 }

@@ -1,6 +1,7 @@
 package facade;
 
 import entity.Hobby;
+import exception.HobbyNotFoundException;
 import interfaces.IHobbyFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -35,9 +36,13 @@ public class HobbyFacade implements IHobbyFacade{
     }
 
     @Override
-    public Hobby getHobby(int id) {
+    public Hobby getHobby(int id) throws HobbyNotFoundException {
         EntityManager em = getEntityManager();
-        return em.createNamedQuery("Hobby.findById", Hobby.class).setParameter("id", id).getSingleResult();
+        Hobby hobby = em.find(Hobby.class, id);
+        if (hobby == null) {
+            throw new HobbyNotFoundException("No Hobby found with provided id");
+        }
+        return hobby;
     }
 
     @Override

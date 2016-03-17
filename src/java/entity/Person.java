@@ -17,11 +17,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Person extends InfoEntity implements Serializable {
     private String firstName;
     private String lastName;
-    
+
     
     @ManyToMany
     private List<Hobby> hobbies;
 
+    public Person() {
+    }
+
+    public Person(String firstName, String lastName, List<Hobby> hobbies, String email, Address address, List<Phone> phones) {
+        super(email, address, phones);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hobbies = hobbies;
+    }
+    
+    
+    
     public String getFirstName() {
         return firstName;
     }

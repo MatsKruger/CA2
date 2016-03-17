@@ -6,6 +6,7 @@
 package test;
 
 import entity.Person;
+import exception.PersonNotFoundException;
 import facade.PersonFacade;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -28,7 +29,7 @@ public class PersonFacadeTest {
     }
     
     @Test
-    public void getPerson() {
+    public void getPerson() throws PersonNotFoundException {
         Person person = personFacade.getPerson(1);
         assertEquals((long) person.getId(), 1);
     }

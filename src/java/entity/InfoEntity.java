@@ -10,15 +10,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 @Entity
 //@MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class InfoEntity implements Serializable {
+
+    public InfoEntity() {
+    }
+
+    public InfoEntity(String email, Address address, List<Phone> phones) {
+        this.email = email;
+        this.address = address;
+        this.phones = phones;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -31,7 +38,7 @@ public abstract class InfoEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Address address;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
     private List<Phone> phones;
 
     public Integer getId() {

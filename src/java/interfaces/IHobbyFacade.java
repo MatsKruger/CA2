@@ -1,6 +1,7 @@
 package interfaces;
 
 import entity.Hobby;
+import exception.HobbyNotFoundException;
 import java.util.List;
 
 public interface IHobbyFacade {
@@ -8,7 +9,7 @@ public interface IHobbyFacade {
 
     public Hobby deleteHobby(int id);
 
-    public Hobby getHobby(int id);
+    public Hobby getHobby(int id) throws HobbyNotFoundException;
 
     public List<Hobby> getHobbies();
 

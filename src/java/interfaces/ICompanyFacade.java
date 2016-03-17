@@ -1,6 +1,7 @@
 package interfaces;
 
 import entity.Company;
+import exception.CompanyNotFoundException;
 import java.util.List;
 
 public interface ICompanyFacade {
@@ -9,9 +10,9 @@ public interface ICompanyFacade {
 
     public Company deleteCompany(int id);
 
-    public Company getCompany(int id);
+    public Company getCompany(int id) throws CompanyNotFoundException;
 
-    public List<Company> getCompanys();
+    public List<Company> getCompanies();
 
     public Company editCompany(Company c);
 }
