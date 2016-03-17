@@ -77,9 +77,8 @@ public class PersonEndpoint {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createPerson(String json) {
-        Person p = pf.addPerson(gson.fromJson(json, Person.class));
-        return gson.toJson(JSONConverter.getJsonObjectFromPerson(p, true)); //return same object or exception if failed?
+    public void post(String persons) {
+        pf.addPersons(JSONConverter.getPersonsFromJson(persons));
     }
 
 }
