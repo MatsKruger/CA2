@@ -9,4 +9,9 @@
             30
         </session-timeout>
     </session-config>
+    <context-param>
+        <description>If true, the stack trace is included with error responses</description>
+        <param-name>debug</param-name>
+        <param-value>true</param-value>
+    </context-param>
 </web-app>

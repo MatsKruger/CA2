@@ -10,8 +10,8 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "cityInfo.findAll", query = "SELECT ci FROM CityInfo ci"),
-    @NamedQuery(name = "cityInfo.findZipCodes", query = "SELECT ci.zipCode FROM CityInfo ci")
+    @NamedQuery(name = "CityInfo.findAll", query = "SELECT ci FROM CityInfo ci"),
+    @NamedQuery(name = "CityInfo.findZipCodes", query = "SELECT ci.zipCode FROM CityInfo ci")
 })
 public class CityInfo implements Serializable {
 

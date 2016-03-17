@@ -14,8 +14,12 @@ import entity.Address;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
+import exception.HobbyNotFoundException;
+import exception.PersonNotFoundException;
 import facade.HobbyFacade;
+import facade.JSONConverter;
 import facade.PersonFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
@@ -52,85 +56,30 @@ public class PersonEndpoint {
         gson = new GsonBuilder().setPrettyPrinting().create();
     }
     
-    
-    
-    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAll() {
-        JsonArray json = new JsonArray();
-        for (Person person : pf.getPersons()) {
-            json.add(this.getPersonJsonObj(person));
+    public String getAll(@QueryParam("hobby") Integer hobbyId) throws HobbyNotFoundException {
+        List<Person> persons;
+        if (hobbyId != null) {
+            persons = hf.getHobby(hobbyId).getPersons();
+        } else {
+            persons = pf.getPersons();
         }
-        
-        return gson.toJson(json); 
+        return JSONConverter.getJSONFromPerson(persons); 
     }
+    
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String get(@PathParam("id") int id) {
-        return gson.toJson(this.getPersonJsonObj(pf.getPerson(id), true));
-    }
-    @GET
-    @Path("/hobby/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getAllByHobby(@PathParam("id") int id) {
-        JsonArray json = new JsonArray();
-        for (Person person : hf.getHobby(id).getPersons()) {
-            json.add(this.getPersonJsonObj(person));
-        }
-        
-        return gson.toJson(json);  
+    public String get(@PathParam("id") int id) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPerson(id));
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public String createPerson(String json) {
-        System.out.println("JSON GOT: " + json);
         Person p = pf.addPerson(gson.fromJson(json, Person.class));
-        return gson.toJson(getPersonJsonObj(p)); //return same object or exception if failed?
+        return gson.toJson(JSONConverter.getJsonObjectFromPerson(p, true)); //return same object or exception if failed?
     }
-    
-    private JsonObject getPersonJsonObj(Person p) {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("firstName", p.getFirstName());
-        obj.addProperty("lastName", p.getLastName());
-        obj.addProperty("email", p.getEmail());
-        obj.add("address", gson.toJsonTree(p.getAddress(), Address.class));
-//        obj.addProperty("address", gson.toJson(p.getAddress(), Address.class)); //makes weird string response
-//        obj.addProperty("phone", gson.toJson(p.getPhones())); //stackoverflow
-        JsonArray phones = new JsonArray();
-        for (Phone ph : p.getPhones()) {
-            JsonObject phone = new JsonObject();
-            phone.addProperty("number", ph.getNumber());
-            phone.addProperty("description", ph.getDescription());
-            phones.add(phone);
-        }
-        obj.add("phones", phones);
-        JsonArray hobbies = new JsonArray();
-        for (Hobby h : p.getHobbies()) {
-            JsonObject hobby = new JsonObject();
-            hobby.addProperty("name", h.getName());
-            hobby.addProperty("description", h.getDescription());
-            hobbies.add(hobby);
-        }
-        obj.add("hobbies", hobbies);
-        return obj;
-    }
-    
-    private JsonObject getPersonJsonObj(Person p, boolean includeHobbies) {
-        JsonObject obj = getPersonJsonObj(p);
-        JsonArray hobbies = new JsonArray();
-        for (Hobby hobby : p.getHobbies()) {
-            JsonObject hobbyObj = new JsonObject();
-            hobbyObj.addProperty("name", hobby.getName());
-            hobbyObj.addProperty("description", hobby.getDescription());
-        }
-        obj.add("hobbies", hobbies);
-        
-        return obj;
-    }
-    
 
-    
 }
