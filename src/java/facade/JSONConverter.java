@@ -10,6 +10,7 @@ import entity.Address;
 import entity.Company;
 import entity.Hobby;
 import entity.Person;
+import entity.Phone;
 import java.util.List;
 
 public class JSONConverter {
@@ -49,13 +50,19 @@ public class JSONConverter {
     }
     
     public static JsonObject getJsonObjectFromPerson(Person p) {
-        JsonObject obj = getJsonObject();
+        JsonObject obj = new JsonObject();
         obj.addProperty("firstName", p.getFirstName());
         obj.addProperty("lastName", p.getLastName());
         obj.addProperty("email", p.getEmail());
         obj.add("address", gson.toJsonTree(p.getAddress(), Address.class));
-        obj.add("phones", gson.toJsonTree(p.getPhones()));
-
+        JsonArray phones = new JsonArray();
+        for (Phone ph : p.getPhones()) {
+            JsonObject phone = new JsonObject();
+            phone.addProperty("number", ph.getNumber());
+            phone.addProperty("description", ph.getDescription());
+            phones.add(phone);
+        }
+        obj.add("phones", phones);
         return obj;
     }
 

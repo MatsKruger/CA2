@@ -15,4 +15,10 @@ public interface ICompanyFacade {
     public List<Company> getCompanies();
 
     public Company editCompany(Company c);
+    
+    public List<Company> getCompanyByCvr(String cvr);
+    
+    public List<Company> getCompaniesByMoreThanNumEmployees(int num);
+    
+    public List<Company> getCompaniesByLessThanNumEmployees(int num);
 }

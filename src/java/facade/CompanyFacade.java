@@ -57,6 +57,30 @@ public class CompanyFacade implements ICompanyFacade {
         EntityManager em = getEntityManager();
         return em.createNamedQuery("Company.findAll", Company.class).getResultList();
     }
+    
+    @Override
+    public List<Company> getCompanyByCvr(String cvr) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Company.findByCvr", Company.class)
+                .setParameter("cvr", cvr)
+                .getResultList();
+    }
+    
+    @Override
+    public List<Company> getCompaniesByMoreThanNumEmployees(int num) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Company.findByMoreThanNumEmployees", Company.class)
+                .setParameter("numEmployees", num)
+                .getResultList();
+    }
+    
+    @Override
+    public List<Company> getCompaniesByLessThanNumEmployees(int num) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Company.findByLessThanNumEmployees", Company.class)
+                .setParameter("numEmployees", num)
+                .getResultList();
+    }
 
     @Override
     public Company editCompany(Company c) {

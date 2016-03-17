@@ -9,14 +9,18 @@ import entity.Company;
 import exception.CompanyNotFoundException;
 import facade.CompanyFacade;
 import facade.JSONConverter;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -46,9 +50,39 @@ public class CompanyEndpoint {
     public String get(@PathParam("id") int id) throws CompanyNotFoundException {
         return JSONConverter.getJSONFromCompany(cf.getCompany(id));
     }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAll() {
-        return JSONConverter.getJSONFromCompanies(cf.getCompanies());    
+    public String getAll(@QueryParam("cvr") String cvr) {
+        List<Company> companies;
+        if (cvr != null) {
+            companies = cf.getCompanyByCvr(cvr);
+        } else {
+            companies = cf.getCompanies();
+        }
+        return JSONConverter.getJSONFromCompanies(companies);    
     }
+    
+    @GET //Companies with more than x number of employees
+    @Path("/moreemp/{numemp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getMore(@PathParam("numemp") int numemp) throws CompanyNotFoundException {
+        return JSONConverter.getJSONFromCompanies(cf.getCompaniesByMoreThanNumEmployees(numemp));
+    }
+    
+    @GET //Companies with less than x number of employees
+    @Path("/lessemp/{numemp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getLess(@PathParam("numemp") int numemp) throws CompanyNotFoundException {
+        return JSONConverter.getJSONFromCompanies(cf.getCompaniesByLessThanNumEmployees(numemp));
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createCompany(String json) {
+        Company c = JSONConverter.getCompanyFromJson(json);
+        cf.addCompany(c);
+        return JSONConverter.getJSONFromCompany(c);
+    }
+    
 }

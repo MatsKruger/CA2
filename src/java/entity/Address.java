@@ -29,5 +29,29 @@ public class Address implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    public CityInfo getCity() {
+        return city;
+    }
+
+    public void setCity(CityInfo city) {
+        this.city = city;
+    }
     
 }

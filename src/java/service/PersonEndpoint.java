@@ -8,10 +8,12 @@ package service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import entity.Address;
 import entity.Hobby;
 import entity.Person;
+import entity.Phone;
 import exception.HobbyNotFoundException;
 import exception.PersonNotFoundException;
 import facade.HobbyFacade;
@@ -63,7 +65,6 @@ public class PersonEndpoint {
         } else {
             persons = pf.getPersons();
         }
-        
         return JSONConverter.getJSONFromPerson(persons); 
     }
     
@@ -76,7 +77,9 @@ public class PersonEndpoint {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void post(String persons) {
-        pf.addPersons(JSONConverter.getPersonsFromJson(persons));
+    public String createPerson(String json) {
+        Person p = pf.addPerson(gson.fromJson(json, Person.class));
+        return gson.toJson(JSONConverter.getJsonObjectFromPerson(p, true)); //return same object or exception if failed?
     }
+
 }
