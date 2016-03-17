@@ -21,4 +21,6 @@ public interface ICompanyFacade {
     public List<Company> getCompaniesByMoreThanNumEmployees(int num);
     
     public List<Company> getCompaniesByLessThanNumEmployees(int num);
+    
+    public List<Company> getCompaniesByName(String name);
 }

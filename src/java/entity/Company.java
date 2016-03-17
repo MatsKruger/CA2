@@ -10,6 +10,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c"),
     @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id"),
     @NamedQuery(name = "Company.findByCvr", query = "SELECT c from Company c WHERE c.cvr = :cvr"),
+    @NamedQuery(name = "Company.findByName", query = "SELECT c from Company c WHERE c.name LIKE :name"),
     @NamedQuery(name = "Company.findByMoreThanNumEmployees", query = "SELECT c from Company c WHERE c.numEmployees > :numEmployees"),
     @NamedQuery(name = "Company.findByLessThanNumEmployees", query = "SELECT c from Company c WHERE c.numEmployees < :numEmployees")
 })

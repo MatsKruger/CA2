@@ -85,7 +85,7 @@ public class PersonFacade implements IPersonFacade {
     public List<Person> getPersonsByCity(String city) {
         EntityManager em = getEntityManager();
         return em.createNamedQuery("Person.findByCity", Person.class)
-                .setParameter("city", "%" + city + "%")
+                .setParameter("city", city + "%") //starts with the parameter
                 .getResultList();
     }
     
@@ -93,7 +93,15 @@ public class PersonFacade implements IPersonFacade {
     public List<Person> getPersonsByZip(String zipCode) {
         EntityManager em = getEntityManager();
         return em.createNamedQuery("Person.findByZip", Person.class)
-                .setParameter("zipCode", "%" + zipCode + "%")
+                .setParameter("zipCode", zipCode + "%") //starts with the parameter
+                .getResultList();
+    }
+    
+    @Override
+    public List<Person> getPersonsByName(String name) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Person.findByFullName", Person.class)
+                .setParameter("name", name + "%") //starts with the parameter
                 .getResultList();
     }
 

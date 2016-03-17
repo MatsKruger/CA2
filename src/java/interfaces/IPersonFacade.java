@@ -19,4 +19,6 @@ public interface IPersonFacade {
     public List<Person> getPersonsByCity(String city);
     
     public List<Person> getPersonsByZip(String zipCode);
+    
+    public List<Person> getPersonsByName(String name);
 }

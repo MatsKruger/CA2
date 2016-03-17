@@ -89,6 +89,13 @@ public class PersonEndpoint {
         return JSONConverter.getJSONFromPerson(pf.getPersonsByZip(zip));
     }
     
+    @GET
+    @Path("n/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByName(@PathParam("name") String name) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPersonsByName(name));
+    }
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void post(String persons) {

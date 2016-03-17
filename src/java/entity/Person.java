@@ -13,8 +13,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
     @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id"),
-    @NamedQuery(name = "Person.findByCity", query = "SELECT p FROM Person p WHERE p.address.city.city LIKE :city"), //needs "%" on each side when setting parameter
-    @NamedQuery(name = "Person.findByZip", query = "SELECT p FROM Person p WHERE p.address.city.zipCode LIKE :zipCode")
+    @NamedQuery(name = "Person.findByCity", query = "SELECT p FROM Person p WHERE p.address.city.city LIKE :city"), //needs "%" on end when setting parameter
+    @NamedQuery(name = "Person.findByZip", query = "SELECT p FROM Person p WHERE p.address.city.zipCode LIKE :zipCode"),
+    @NamedQuery(name = "Person.findByFullName", query = "SELECT p FROM Person p WHERE CONCAT(p.firstName, ' ', p.lastName) LIKE :name")
 })
 @XmlRootElement
 public class Person extends InfoEntity implements Serializable {
