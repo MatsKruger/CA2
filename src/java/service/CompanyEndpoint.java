@@ -77,6 +77,13 @@ public class CompanyEndpoint {
         return JSONConverter.getJSONFromCompanies(cf.getCompaniesByLessThanNumEmployees(numemp));
     }
     
+    @GET //Companies with less than x number of employees
+    @Path("n/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByName(@PathParam("name") String name) throws CompanyNotFoundException {
+        return JSONConverter.getJSONFromCompanies(cf.getCompaniesByName(name));
+    }
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public String createCompany(String json) {
