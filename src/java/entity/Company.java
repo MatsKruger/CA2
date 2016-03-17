@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,6 +18,18 @@ public class Company extends InfoEntity implements Serializable {
     private String cvr;
     private int numEmployees;
     private double marketValue;
+
+    public Company() {
+    }
+
+    public Company(String name, String description, String cvr, int numEmployees, double marketValue, String email, Address address, List<Phone> phones) {
+        super(email, address, phones);
+        this.name = name;
+        this.description = description;
+        this.cvr = cvr;
+        this.numEmployees = numEmployees;
+        this.marketValue = marketValue;
+    }
 
     public String getName() {
         return name;
