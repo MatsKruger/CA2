@@ -44,7 +44,7 @@ public class JSONConverter {
     public static JsonArray getJsonArrayFromPersonList(List<Person> persons) {
         JsonArray json = getJsonArray();
         for (Person person : persons) {
-            json.add(getJsonObjectFromPerson(person));
+            json.add(getJsonObjectFromPerson(person, true));
         }
         return json;
     }
@@ -73,6 +73,7 @@ public class JSONConverter {
             JsonObject hobbyObj = getJsonObject();
             hobbyObj.addProperty("name", hobby.getName());
             hobbyObj.addProperty("description", hobby.getDescription());
+            hobbies.add(hobbyObj);
         }
         obj.add("hobbies", hobbies);
 

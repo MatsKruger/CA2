@@ -21,6 +21,8 @@ public class PersonFacade implements IPersonFacade {
         try {
             em.getTransaction().begin();
             em.persist(p);
+            em.flush();
+            em.clear();
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -37,7 +39,8 @@ public class PersonFacade implements IPersonFacade {
             for (Person person : persons) {
                 em.persist(person);
             }
-            
+            em.flush();
+            em.clear();
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -76,6 +79,22 @@ public class PersonFacade implements IPersonFacade {
     public List<Person> getPersons() {
         EntityManager em = getEntityManager();
         return em.createNamedQuery("Person.findAll", Person.class).getResultList();
+    }
+    
+    @Override
+    public List<Person> getPersonsByCity(String city) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Person.findByCity", Person.class)
+                .setParameter("city", "%" + city + "%")
+                .getResultList();
+    }
+    
+    @Override
+    public List<Person> getPersonsByZip(String zipCode) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Person.findByZip", Person.class)
+                .setParameter("zipCode", "%" + zipCode + "%")
+                .getResultList();
     }
 
     @Override

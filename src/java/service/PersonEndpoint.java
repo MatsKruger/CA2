@@ -75,11 +75,24 @@ public class PersonEndpoint {
         return JSONConverter.getJSONFromPerson(pf.getPerson(id));
     }
     
+    @GET
+    @Path("c/{city}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByCity(@PathParam("city") String city) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPersonsByCity(city));
+    }
+    
+    @GET
+    @Path("z/{zip}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByZip(@PathParam("zip") String zip) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPersonsByZip(zip));
+    }
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createPerson(String json) {
-        Person p = pf.addPerson(gson.fromJson(json, Person.class));
-        return gson.toJson(JSONConverter.getJsonObjectFromPerson(p, true)); //return same object or exception if failed?
+    public void post(String persons) {
+        pf.addPersons(JSONConverter.getPersonsFromJson(persons));
     }
 
 }
