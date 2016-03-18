@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,10 +35,10 @@ public abstract class InfoEntity implements Serializable {
     @Column(nullable = true)
     private String email;
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Phone> phones;
 
     public Integer getId() {
@@ -72,10 +71,6 @@ public abstract class InfoEntity implements Serializable {
 
     public void setPhones(List<Phone> phones) {
         this.phones = phones;
-    }
-
-    
-    
-    
+    }   
     
 }

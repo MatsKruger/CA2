@@ -13,14 +13,13 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Hobby.findAll", query = "SELECT h FROM Hobby h"),
-    @NamedQuery(name = "Hobby.findById", query = "SELECT h FROM Hobby h WHERE h.id = :id")
+    @NamedQuery(name = "Hobby.findById", query = "SELECT h FROM Hobby h WHERE h.id = :id"),
+    @NamedQuery(name = "Hobby.findAllByName", query = "SELECT h FROM Hobby h WHERE h.name LIKE :name")
 })
 public class Hobby implements Serializable {
 
     @ManyToMany(mappedBy = "hobbies")
     private List<Person> persons;
-
-    
 
     private static final long serialVersionUID = 1L;
     @Id

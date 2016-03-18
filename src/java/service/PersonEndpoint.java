@@ -7,22 +7,18 @@ package service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import entity.Address;
-import entity.Hobby;
 import entity.Person;
-import entity.Phone;
 import exception.HobbyNotFoundException;
 import exception.PersonNotFoundException;
 import facade.HobbyFacade;
 import facade.JSONConverter;
 import facade.PersonFacade;
+import static java.lang.Integer.parseInt;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -78,8 +74,28 @@ public class PersonEndpoint {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public String createPerson(String json) {
-        Person p = pf.addPerson(gson.fromJson(json, Person.class));
-        return gson.toJson(JSONConverter.getJsonObjectFromPerson(p, true)); //return same object or exception if failed?
+        Person p = JSONConverter.getPersonFromJson(json);
+        p.getPhones().stream().forEach((phone) -> {
+            phone.setOwner(p);
+        });
+        pf.addPerson(p);
+        return JSONConverter.getJSONFromPerson(p);
+    }
+    
+    @POST
+    @Path("/bulk")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void post(String persons) {
+        pf.addPersons(JSONConverter.getPersonsFromJson(persons));
+    }
+    
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public void deleteByIds(@QueryParam("ids") final String ids) throws PersonNotFoundException {
+        String[] ints = ids.split(",");
+        for (String int1 : ints) {
+            pf.deletePerson(parseInt(int1));
+        }
     }
 
 }

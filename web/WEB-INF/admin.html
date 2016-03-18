@@ -1,0 +1,264 @@
+<html>
+    <head>
+        <title>REST</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+
+        <link href="/CA2/lib/select2-bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <style>
+            body {
+                overflow: hidden;
+                padding: 2em 2em 3em;
+            }
+            footer li {
+                margin-right: 1em;
+            }
+            footer {
+                padding: .5em 1em;
+            }
+            .list-group-item {
+                cursor: pointer;
+            }
+            .list-group-item:focus, .list-group-item:hover {
+                color: #555;
+                text-decoration: none;
+                background-color: #f5f5f5;
+            }
+            #hobbies, #persons, #companies {
+                overflow: auto;
+            }
+            table {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#persons" data-toggle="tab">Persons</a></li>
+                    <li><a href="#companies" data-toggle="tab">Companies</a></li>
+                    <li><a href="#hobbies" data-toggle="tab">Hobbies</a></li>
+                </ul>  
+                <div class="tab-content clearfix">
+                    <div class="tab-pane" id="hobbies">
+                        <h2>Hobbies</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane active" id="persons">
+                        <h2>Persons</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Email</th>
+                                    <th>Phones</th>
+                                    <th>Address</th>
+                                    <th>Hobbies</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="companies">
+                        <h2>Companies</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>CVR</th>
+                                    <th>Email</th>
+                                    <th>Phones</th>
+                                    <th>Address</th>
+                                    <th>Employees</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="navbar navbar-default navbar-fixed-bottom" style="min-height: auto;">
+            <nav>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <div class="dropup">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><a href="#" data-toggle="modal" data-target="#newPersonModal">Person</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#newCompanyModal">Company</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#newHobbyModal">Hobby</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><button class="btn btn-danger" type="button" id="delete-btn">Delete</button></li>
+                </ul>
+            </nav>
+
+        </footer>
+
+
+        <!-- New Person Modal -->
+        <div class="modal fade" id="newPersonModal" role="dialog" aria-labelledby="newPersonModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="newPersonModalLabel">New Person</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="newPersonFirstName">First name</label>
+                                <input type="text" class="form-control" id="newPersonFirstName" name="firstName" placeholder="First name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPersonLastName">Last name</label>
+                                <input type="text" class="form-control" id="newPersonLastName" name="lastName" placeholder="Last name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPersonPhones">Phones</label>
+                                <input type="text" class="form-control" id="newPersonPhones" name="phones" placeholder="Phones">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPersonEmail">Email address</label>
+                                <input type="email" class="form-control" id="newPersonEmail" name="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPersonHobbies">Hobbies</label>
+                                <select id="newPersonHobbies" class="form-control" name="hobbies" multiple="multiple"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPersonAddress">Address</label>
+                                <input type="text" class="form-control" id="newPersonAddress" name="address" placeholder="Address">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveNewPerson">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Company Modal -->
+        <div class="modal fade" id="newCompanyModal" role="dialog" aria-labelledby="newCompanyModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="newCompanyModalLabel">New Company</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="newCompanySearch">Søg</label>
+                                <input type="text" class="form-control" id="newCompanySearch" placeholder="Søg på navn eller CVR eller P-nummer">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyName">Name</label>
+                                <input type="text" class="form-control" id="newCompanyName" name="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyDescription">Description</label>
+                                <input type="text" class="form-control" id="newCompanyDescription" name="description" placeholder="Description">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyCvr">CVR</label>
+                                <input type="text" class="form-control" id="newCompanyCvr" name="cvr" placeholder="CVR">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyNumEmployees">Number of employees</label>
+                                <input type="text" class="form-control" id="newCompanyNumEmployees" name="numEmployees" placeholder="Number of employees">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyMarketValue">Market value</label>
+                                <input type="text" class="form-control" id="newCompanyMarketValue" name="marketValue" placeholder="Market value">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyPhones">Phones</label>
+                                <input type="text" class="form-control" id="newCompanyPhones" name="phones" placeholder="Phones">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyEmail">Email address</label>
+                                <input type="email" class="form-control" id="newCompanyEmail" name="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="newCompanyAddress">Address</label>
+                                <input type="text" class="form-control" id="newCompanyAddress" name="address" placeholder="Address">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveNewCompany">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Hobby Modal -->
+        <div class="modal fade" id="newHobbyModal" role="dialog" aria-labelledby="newHobbyModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="newHobbyModalLabel">New Hobby</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="newHobbyName">Name</label>
+                                <input type="text" class="form-control" id="newHobbyName" name="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newHobbyDescription">Description</label>
+                                <input type="text" class="form-control" id="newHobbyDescription" name="description" placeholder="Description">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveNewHobby">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+        <script src="/CA2/lib/dawa-autocomplete.js"></script>
+        <script src="/CA2/main.js"></script>
+    </body>
+</html>

@@ -44,13 +44,14 @@ public class JSONConverter {
     public static JsonArray getJsonArrayFromPersonList(List<Person> persons) {
         JsonArray json = getJsonArray();
         for (Person person : persons) {
-            json.add(getJsonObjectFromPerson(person));
+            json.add(getJsonObjectFromPerson(person, true));
         }
         return json;
     }
     
     public static JsonObject getJsonObjectFromPerson(Person p) {
         JsonObject obj = new JsonObject();
+        obj.addProperty("id", p.getId());
         obj.addProperty("firstName", p.getFirstName());
         obj.addProperty("lastName", p.getLastName());
         obj.addProperty("email", p.getEmail());
@@ -69,10 +70,12 @@ public class JSONConverter {
     public static JsonObject getJsonObjectFromPerson(Person p, boolean includeHobbies) {
         JsonObject obj = getJsonObjectFromPerson(p);
         JsonArray hobbies = getJsonArray();
+        
         for (Hobby hobby : p.getHobbies()) {
             JsonObject hobbyObj = getJsonObject();
             hobbyObj.addProperty("name", hobby.getName());
             hobbyObj.addProperty("description", hobby.getDescription());
+            hobbies.add(hobbyObj);
         }
         obj.add("hobbies", hobbies);
 
@@ -118,5 +121,30 @@ public class JSONConverter {
         return new JsonObject();
     }
     
+    
+    // Hobbies
+    public static Hobby getHobbyFromJson(String js) {
+        return gson.fromJson(js, Hobby.class);
+    }
+    public static String getJSONFromHobbies(List<Hobby> hobbies) {
+        //return gson.toJson(getJsonArrayFromCompanyList(company));
+        return gsonIt(getJsonArrayFromHobbyList(hobbies));
+    }
+    
+    public static List<Hobby> getHobbiesFromJson(String js) {
+        return gson.fromJson(js, new TypeToken<List<Hobby>>() {}.getType());
+    }
+    
+    public static JsonArray getJsonArrayFromHobbyList(List<Hobby> hobbies) {
+        JsonArray json = getJsonArray();
+        for (Hobby hobby : hobbies) {
+            JsonObject obj = getJsonObject();
+            obj.addProperty("id", hobby.getId());
+            obj.addProperty("name", hobby.getName());
+            obj.addProperty("description", hobby.getDescription());
+            json.add(obj);
+        }
+        return json;
+    }
     
 }

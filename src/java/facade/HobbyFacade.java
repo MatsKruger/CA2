@@ -29,6 +29,23 @@ public class HobbyFacade implements IHobbyFacade{
         
         return h;
     }
+    
+    //@Override
+    public List<Hobby> addHobbies(List<Hobby> hobbies) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            for (Hobby person : hobbies) {
+                em.persist(person);
+            }
+            
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return hobbies;
+    }
 
     @Override
     public Hobby deleteHobby(int id) {
@@ -43,6 +60,14 @@ public class HobbyFacade implements IHobbyFacade{
             throw new HobbyNotFoundException("No Hobby found with provided id");
         }
         return hobby;
+    }
+    
+    //@Override
+    public List<Hobby> getHobbiesByName(String name) throws HobbyNotFoundException {
+        EntityManager em = getEntityManager();
+        List<Hobby> hobbies = em.createNamedQuery("Hobby.findAllByName").setParameter("name", '%' + name + '%').getResultList();
+        
+        return hobbies;
     }
 
     @Override

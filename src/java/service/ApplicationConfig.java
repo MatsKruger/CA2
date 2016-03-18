@@ -35,6 +35,7 @@ public class ApplicationConfig extends Application {
         resources.add(exception.NotFoundExceptionMapper.class);
         resources.add(exception.PersonNotFoundExceptionMapper.class);
         resources.add(service.CompanyEndpoint.class);
+        resources.add(service.HobbyEndpoint.class);
         resources.add(service.PersonEndpoint.class);
     }
     

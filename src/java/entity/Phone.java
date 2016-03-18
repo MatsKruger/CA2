@@ -1,10 +1,13 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -18,7 +21,7 @@ public class Phone implements Serializable {
     private String number;
     private String description;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private InfoEntity owner;
 
     public Integer getId() {
@@ -43,6 +46,14 @@ public class Phone implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public InfoEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(InfoEntity owner) {
+        this.owner = owner;
     }
     
     
