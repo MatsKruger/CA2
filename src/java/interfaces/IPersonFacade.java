@@ -15,4 +15,10 @@ public interface IPersonFacade {
     public List<Person> getPersons();
 
     public Person editPerson(Person p);
+    
+    public List<Person> getPersonsByCity(String city);
+    
+    public List<Person> getPersonsByZip(String zipCode);
+    
+    public List<Person> getPersonsByName(String name);
 }

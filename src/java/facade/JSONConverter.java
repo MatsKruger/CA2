@@ -101,6 +101,11 @@ public class JSONConverter {
         JsonArray json = getJsonArray();
         for (Company company : companies) {
             JsonObject obj = getJsonObject();
+            obj.addProperty("name", company.getName());
+            obj.addProperty("description", company.getDescription());
+            obj.addProperty("cvr", company.getCvr());
+            obj.addProperty("numEmployees", company.getNumEmployees());
+            obj.addProperty("marketValue", company.getMarketValue());
             obj.addProperty("email", company.getEmail());
             obj.add("address", gson.toJsonTree(company.getAddress(), Address.class));
             obj.add("phones", gson.toJsonTree(company.getPhones())); 

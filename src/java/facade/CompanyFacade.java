@@ -81,6 +81,14 @@ public class CompanyFacade implements ICompanyFacade {
                 .setParameter("numEmployees", num)
                 .getResultList();
     }
+    
+    @Override
+    public List<Company> getCompaniesByName(String name) {
+        EntityManager em = getEntityManager();
+        return em.createNamedQuery("Company.findByName", Company.class)
+                .setParameter("name", name + "%") //find x that starts with name
+                .getResultList();
+    }
 
     @Override
     public Company editCompany(Company c) {

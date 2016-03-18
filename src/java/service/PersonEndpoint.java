@@ -71,6 +71,27 @@ public class PersonEndpoint {
         return JSONConverter.getJSONFromPerson(pf.getPerson(id));
     }
     
+    @GET
+    @Path("c/{city}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByCity(@PathParam("city") String city) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPersonsByCity(city));
+    }
+    
+    @GET
+    @Path("z/{zip}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByZip(@PathParam("zip") String zip) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPersonsByZip(zip));
+    }
+    
+    @GET
+    @Path("n/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getByName(@PathParam("name") String name) throws PersonNotFoundException {
+        return JSONConverter.getJSONFromPerson(pf.getPersonsByName(name));
+    }
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public String createPerson(String json) {
