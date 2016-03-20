@@ -56,6 +56,4 @@ public class Phone implements Serializable {
         this.owner = owner;
     }
     
-    
-    
 }

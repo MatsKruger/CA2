@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import deploy.DeploymentConfiguration;
 import entity.Address;
 import entity.Company;
 import exception.CompanyNotFoundException;
@@ -39,7 +40,7 @@ public class CompanyEndpoint {
     
     
     public CompanyEndpoint() {
-        emf = Persistence.createEntityManagerFactory("PUTest");
+        emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
         cf = new CompanyFacade(emf);
         gson = new GsonBuilder().setPrettyPrinting().create();
     }

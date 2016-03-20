@@ -7,6 +7,7 @@ package service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import deploy.DeploymentConfiguration;
 import entity.Hobby;
 import exception.HobbyNotFoundException;
 import facade.HobbyFacade;
@@ -40,7 +41,7 @@ public class HobbyEndpoint {
     
     
     public HobbyEndpoint() {
-        emf = Persistence.createEntityManagerFactory("PUTest");
+        emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
         hf = new HobbyFacade(emf);
         gson = new GsonBuilder().setPrettyPrinting().create();
     }

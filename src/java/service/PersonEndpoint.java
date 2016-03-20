@@ -8,6 +8,8 @@ package service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import entity.Person;
+import entity.Phone;
+import deploy.DeploymentConfiguration;
 import exception.HobbyNotFoundException;
 import exception.PersonNotFoundException;
 import facade.HobbyFacade;
@@ -46,7 +48,7 @@ public class PersonEndpoint {
     
     
     public PersonEndpoint() {
-        emf = Persistence.createEntityManagerFactory("PUTest");
+        emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
         pf = new PersonFacade(emf);
         hf = new HobbyFacade(emf);
         gson = new GsonBuilder().setPrettyPrinting().create();
@@ -96,9 +98,9 @@ public class PersonEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public String createPerson(String json) {
         Person p = JSONConverter.getPersonFromJson(json);
-        p.getPhones().stream().forEach((phone) -> {
+        for (Phone phone : p.getPhones()) {
             phone.setOwner(p);
-        });
+        }
         pf.addPerson(p);
         return JSONConverter.getJSONFromPerson(p);
     }

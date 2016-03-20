@@ -65,7 +65,7 @@ public class HobbyFacade implements IHobbyFacade{
     //@Override
     public List<Hobby> getHobbiesByName(String name) throws HobbyNotFoundException {
         EntityManager em = getEntityManager();
-        List<Hobby> hobbies = em.createNamedQuery("Hobby.findAllByName").setParameter("name", '%' + name + '%').getResultList();
+        List<Hobby> hobbies = em.createNamedQuery("Hobby.findByName").setParameter("name", '%' + name + '%').getResultList();
         
         return hobbies;
     }

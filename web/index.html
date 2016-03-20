@@ -1,16 +1,103 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Index</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+        <link href="/CA2/lib/select2-bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <style>
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                /* Set the fixed height of the footer here */
+                height: 90px;
+                background-color: #f5f5f5;
+            }
+            .bottom-buffer { margin-bottom:20px; }
+            .p-align { line-height: 2.2; }
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
+        <div class="container">
+            <h1>CA2 Search</h1>
+            <div id="searchPerson">
+                <div class="row bottom-buffer">
+                    <div class="col-md-3">
+                        <p class="text-right p-align"><b>Search for a person by: </b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button value="Name" id="pSearchByValue" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="pSearchByValueDisplay">Name </span><span class="caret"></span>
+                                </button>
+                                <ul id="pValues" class="dropdown-menu">
+                                    <li><a href="#">Name </a></li>
+                                    <li><a href="#">City </a></li>
+                                    <li><a href="#">Zip </a></li>
+                                    <li><a href="#">Hobby </a></li>
+                                </ul>
+                            </div>
+                            <input id="pTextSearchTerm" type="text" class="form-control" placeholder="Search person">
+                            <div class="input-group-btn">
+                                <button id="pSubmitBtn" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row bottom-buffer">
+                    <div class="col-md-3">
+                        <p class="text-right p-align"><b>Search for a company by: </b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button value="Name" id="cSearchByValue" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="cSearchByValueDisplay">Name </span><span class="caret"></span>
+                                </button>
+                                <ul id="cValues" class="dropdown-menu">
+                                    <li><a href="#">Name </a></li>
+                                    <li><a href="#">CVR </a></li>
+                                    <li><a href="#">More employees than </a></li>
+                                    <li><a href="#">Less employees than </a></li>
+                                </ul>
+                            </div>
+                            <input id="cTextSearchTerm" type="text" class="form-control" placeholder="Search company">
+                            <div class="input-group-btn">
+                                <button id="cSubmitBtn" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="result">
+                <table class="table">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div id="authors"><p class="text-muted text-center">Mats Krüger & Christopher Borum</p></div>
+                <div id="class"><p class="text-muted text-center">16dat3q15f</p></div>
+                <div id= "group"><p class="text-muted text-center">Group 1</p></div>
+            </div>
+        </footer>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" charset="utf-8"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+        <script src="/CA2/lib/dawa-autocomplete.js"></script>
+        <script src="/CA2/indexmain.js"></script>
     </body>
 </html>
